@@ -25,7 +25,6 @@ public class TestMain {
 			int menu = sc.nextInt();
 
 			if (menu == 1) {
-				// 일단 문항 다 만들고 바꾸자
 				if (!login) {
 					testService.save();
 				} else {
