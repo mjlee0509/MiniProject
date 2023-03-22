@@ -15,9 +15,9 @@ public class TestMain {
 		while (true) {
 			System.out.println("=================||반응형 웹기반 Back-end 개발자를 위한 심리테스트||=================");
 			if (!login) {
-				System.out.println(" |(1.회원가입)|                 |(2.로그인)|                 |(0.종료)| ");
+				System.out.println("1.회원가입  2.로그인  0.종료 ");
 			} else {
-				System.out.println(" |(1.테스트하러가기)|  |(2.테스트내역)|  |(3.포인트충전)|  |(4.유료서비스)|  |(0.종료)| ");
+				System.out.println("1.테스트 하러가기  2.마이페이지  3.테스트 내역  4.로그아웃  0.종료 ");
 			}
 			System.out.println("============================================================================");
 
@@ -28,22 +28,23 @@ public class TestMain {
 				if (!login) {
 					testService.save();
 				} else {
-					mbtiService.eiTest();
-					mbtiService.nsTest();
-					mbtiService.tfTest();
-					mbtiService.jpTest();
-					boolean testEnd = false;
-										
+					mbtiService.mbtiSave();
+
 				}
 			} else if (menu == 2) {
 				if (!login) {
 					login = testService.loginCheck();
 				} else {
-//					service.findAll();
-					
+					testService.findAll();
+
 				}
 
-			} else if (menu == 3) {
+			} else if (menu == 3 || login) {
+				mbtiService.yourResult();
+
+			} else if (menu == 4 || login) {
+				testService.logout();
+				login = false;
 
 			} else if (menu == 0) {
 				break;

@@ -1,6 +1,8 @@
 package miniProject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import day17.ClientDTO;
@@ -15,6 +17,7 @@ public class TestRepository {
 		return repository;
 	}
 	Map<String, TestDTO> testMap = new HashMap<>();
+	List<MbtiDTO> mbtiList = new ArrayList<>();
 	TestDTO testDTO = new TestDTO();
 
 	public boolean save(TestDTO testDTO) {
@@ -36,14 +39,20 @@ public class TestRepository {
 		}
 	}
 	
-	public boolean loginCheck(String id, String password) {
+	public boolean loginCheck(String nick, String password) {
 		for (String key : testMap.keySet()) {
-			if (id.equals(testMap.get(key).getId()) && password.equals(testMap.get(key).getPassword())) {
+			if (nick.equals(testMap.get(key).getNick()) && password.equals(testMap.get(key).getPassword())) {
 				return true;
 			}
 		}
 		return false;
 	}
+	
+	public Map<String, TestDTO> findAll() {
+		return testMap; 
+	}
+	
+
 
 
 
