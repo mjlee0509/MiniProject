@@ -1,6 +1,16 @@
 package miniProject;
 
-public class MbtiDTO extends TestDTO{
+import java.text.DecimalFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class MbtiDTO{
+	private final static DateTimeFormatter DTF = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 hh:mm:ss");
+	private static DecimalFormat df = new DecimalFormat("000");
+	private String testName = "[기본테스트]초간단 MBTI 테스트 #";
+	private static int testNum = 0;
+	private String testDiv;
+
 	private int question01;
 	private int question02;
 	private int question03;
@@ -24,10 +34,13 @@ public class MbtiDTO extends TestDTO{
 	private String ftResult;
 	private String jpResult;
 
-	private String yourType;
+	protected String yourType;
+
+	protected String testDate;
 
 	public MbtiDTO() {
-
+		this.testDate = DTF.format(LocalDateTime.now());
+		this.testDiv = testName + df.format(testNum++);
 	}
 
 	public int getQuestion01() {
@@ -208,9 +221,17 @@ public class MbtiDTO extends TestDTO{
 	}
 
 	public String getYourType() {
-		String str = eiResult + nsResult + ftResult + jpResult;
+		this.yourType = eiResult + nsResult + ftResult + jpResult;
+		return yourType;
+	}
+	
+	@Override
+	public String toString() {
+		String str = testDiv + "\t\t" + yourType + "\t\t\t\t" + testDate;
 		return str;
 	}
+
+	
 	
 	
 

@@ -10,12 +10,12 @@ public class TestDTO {
 	private static String guest = "guest";
 	private static int num = 0;
 
-	private String id;
-	private String password;
-	private String nick;
-	private String myType;
-	private String joinDate;
-	private long myPoint;
+	protected String id;
+	protected String password;
+	protected String nick;
+	protected String myType;
+	protected String joinDate;
+	protected long myPoint;
 	
 	
 	public TestDTO() {
@@ -50,13 +50,15 @@ public class TestDTO {
 		this.myPoint = myPoint;
 	}
 	
+	
+	
 	@Override
 	public String toString() {
-		return id + "\t\t" + nick + "\t\t" + joinDate; 
+		return id + "\t" + nick + "\t\t" + myPoint + "\t" + joinDate;
 	}
-	
+
 	public void print() {
-		System.out.println(id + "\t\t" + nick + "\t\t" + joinDate);
+		System.out.println(id + "\t" + nick + "\t\t" + myPoint + "\t" + joinDate);
 	}
 
 }

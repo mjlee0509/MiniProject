@@ -21,9 +21,9 @@ public class TestService {
 	}
 
 	private Scanner sc = new Scanner(System.in);
-	private TestRepository repository = TestRepository.getInstance();
-	private String loginNick = null;
-	private String loginPassword = null;
+	private TestRepository testRepository = TestRepository.getInstance();
+	protected String loginNick = null;
+	protected String loginPassword = null;
 
 
 	public void save() {
@@ -31,7 +31,7 @@ public class TestService {
 		while (true) {
 			System.out.print("사용하실 닉네임을 입력하세요 >>> ");
 			testDTO.setNick(sc.next());
-			if (repository.dupCheck(testDTO.getNick())) {
+			if (testRepository.dupCheck(testDTO.getNick())) {
 				System.out.println("이미 사용중인 아이디입니다. 다시 입력해주세요");
 			} else {
 				break;
@@ -39,7 +39,7 @@ public class TestService {
 		}
 		System.out.print("사용하실 비밀번호를 입력하세요 >>> ");
 		testDTO.setPassword(sc.next());
-		if (repository.save(testDTO)) {
+		if (testRepository.save(testDTO)) {
 			System.out.println("\u001B[35m" + testDTO.getNick() + "\u001B[30m" + " 님 환영합니다");
 		} else {
 			System.out.println("회원가입 실패");
@@ -53,39 +53,48 @@ public class TestService {
 		String nick = sc.next();
 		System.out.print("비밀번호 >>> ");
 		String password = sc.next();
-		if (repository.loginCheck(nick, password)) {
+		if (testRepository.loginCheck(nick, password)) {
 			System.out.println("\u001B[35m" + nick + "\u001B[30m" + " 님 환영합니다.");
 			loginNick = nick;
 			loginPassword = password;
 			return true;
 		} else {
-			System.out.println("ID 또는 비밀번호를 확인하세요");
+			System.out.println("닉네임 또는 비밀번호를 확인하세요");
 			return false;
 		}
 
 	}
 	
+	// 관리자용 기능이므로 지금은 필요 ㄴㄴ
 	public void findAll() {
-		Map<String, TestDTO> testMap = repository.findAll();
-		System.out.println("\n");
-		System.out.println("아이디\t\t닉네임\t\t테스트결과\t\t\t\t테스트날짜");
-		System.out.println("───────────────────────────────────────────────────────────────────────────");
-		List<String> keySet = new ArrayList<>(testMap.keySet());
+		Map<String, TestDTO> testMap = testRepository.findAll();
+		System.out.println("ID\t\t닉네임\t\t내 포인트\t가입일자");
+		System.out.println("──────────────────────────────────────────────────────────────────────────────────────────────────");
+		List<String> keySet = new ArrayList<>(testMap.keySet()); 
 		for (String key : keySet) {
 			testMap.get(key).print();
 		}
-		System.out.println("───────────────────────────────────────────────────────────────────────────");
-
-
+		System.out.println("──────────────────────────────────────────────────────────────────────────────────────────────────");
 	}
 	
-	
+	public void findById() {
+		TestDTO testDTO = testRepository.findById(loginNick, loginPassword);
+		
+		if (testDTO == null) {
+			System.out.println("로그인 오류");
+		} else {
+			System.out.println("ID\t\t닉네임\t\t내 포인트\t가입일자");
+			System.out.println("──────────────────────────────────────────────────────────────────────────────────────────────────");
+			System.out.println(testDTO.toString());
+			System.out.println("──────────────────────────────────────────────────────────────────────────────────────────────────");
 
-	
-
+		}
+	}
 
 		
 
+
+	
 	
 	public void logout() {
 		loginNick = null;

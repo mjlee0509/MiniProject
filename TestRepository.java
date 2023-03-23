@@ -8,13 +8,14 @@ import java.util.Map;
 import day17.ClientDTO;
 import day17.ClientRepository;
 
-public class TestRepository {
+public class TestRepository{
 	
-	private static TestRepository repository = new TestRepository();
+	private static TestRepository testRepository = new TestRepository();
 	private TestRepository() {
 	}
+	
 	public static TestRepository getInstance() {
-		return repository;
+		return testRepository;
 	}
 	Map<String, TestDTO> testMap = new HashMap<>();
 	List<MbtiDTO> mbtiList = new ArrayList<>();
@@ -28,10 +29,10 @@ public class TestRepository {
 		return false;
 	}
 
-	public boolean dupCheck(String id) {
+	public boolean dupCheck(String nick) {
 		while (true) {
 			for (String key : testMap.keySet()) {
-				if (testMap.get(key).getId().equals(id)) {
+				if (testMap.get(key).getNick().equals(nick)) {
 					return true;
 				}
 			}
@@ -49,8 +50,20 @@ public class TestRepository {
 	}
 	
 	public Map<String, TestDTO> findAll() {
-		return testMap; 
+		return testMap;
 	}
+	
+	public TestDTO findById(String nick, String password) {
+		for (String key : testMap.keySet()) {
+			if (nick.equals(testMap.get(key).getNick()) && password.equals(testMap.get(key).getPassword())) {
+				return testMap.get(key);
+			}
+		}
+		return null;
+	}
+
+
+
 	
 
 

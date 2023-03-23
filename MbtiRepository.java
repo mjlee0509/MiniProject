@@ -15,26 +15,38 @@ public class MbtiRepository {
 		return mbtiRepository;
 	}
 	MbtiDTO mbtiDTO = new MbtiDTO();
-	List<MbtiDTO> mbtiList = new ArrayList<>(); 
+	List<MbtiDTO> resultList = new ArrayList<>(); 
 	
-	public List<MbtiDTO> findAll() {
-		return mbtiList;
+	public boolean save(MbtiDTO mbtiDTO) {
+		boolean result = resultList.add(mbtiDTO);
+		return result;
+	}
 		
+	public List<MbtiDTO> findAll() {
+		return resultList;
 	}
 	
-	public List<MbtiDTO> mbtiList(String account) {
-		List<MbtiDTO> mbtiList = new ArrayList<>();
-		for (MbtiDTO mbtiDTO : mbtiList) {
-			if (mbtiDTO.getEiResult().equals(eiResult)) {
-				mbtiList.add(mbtiDTO);
-			}
-		}
-		return mbtiList;
+//	public MbtiDTO findById(String nick, String password) {
+//		for (MbtiDTO mbtiDTO : resultList) {
+//			if (mbtiDTO.getNick().equals(nick)) {
+//				return mbtiDTO;
+//			}
+//
+//		}
+//		return null;
+//
+//	}
+
+
+
+	
+//	public List<MbtiDTO> mbtiList(String account) {
+//		List<MbtiDTO> mbtiList = new ArrayList<>();
+//		return mbtiList;
 	
 	
 
 	
 
 
-}
 }
